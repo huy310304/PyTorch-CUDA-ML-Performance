@@ -10,6 +10,14 @@ This project aims to compare the performance of a PyTorch machine learning model
 - Explored optimization techniques for minimizing synchronization overhead, applying these methods to compare performance between PyTorch and CUDA models.
 - Integrated GPU-accelerated libraries, such as cuML from the RAPIDS suite, to extend the comparison with PyTorch, focusing on performance gains in various machine learning tasks.
 
+## General Notes:
+- Ensure the correct CUDA toolkit is loaded using: `module load cuda-toolkit-11.7.0`
+- To compile CUDA C++ programs (.cu), use: `nvcc vector_add.cu -o out`
+- To run the executable: `./out` 
+- Profile with nvprof (Deprecated): `nvprof ./out`
+- To profile with Nsight system: `nsys profile --stats=true -o out-report ./out` and the output report will be saved as `out-report.qdrep` and can be analyzed using the Nsight Systems UI or command-line tools.
+
+
 ## Tools and Methods
 
 - **Programming Languages**: Python, NVIDIA CUDA
