@@ -10,8 +10,12 @@ The vector addition involves initializing vectors, performing the addition on th
 1. **Initialization on the CPU using `cudaMallocManaged` - [(view source code)](./vector_add_UM.cu).**
 2. **Initialization on the GPU using `cudaMallocManaged` - [(view source code)](./vector_add_init_kernel.cu).**
 3. **Initialization on the GPU using `cudaMallocManaged` and `cudaMemPrefetchAsync` - [(view source code)](./vector_add_init_kernel_prefetch.cu).**
+4. **Using Non-default Concurrent Streams for Overlapping Memory Transfers and Computation with `cudaMemcpyAsync`** - [(view source code)](./overlap_xfer.cu).
 
 ## Key Observations
+
+Each subsequent technique builds upon the previous one, adding further optimizations:
+
 **1. Initialization on GPU:** 
   - Faster than initialization on the CPU because there’s no need to wait for Host-to-Device (HtoD) memory transfers.
   - Kernel execution is faster since the data is already on the GPU.
@@ -22,7 +26,8 @@ The vector addition involves initializing vectors, performing the addition on th
   - This approach avoids waiting for data to be transferred from unified memory to the device during kernel execution, leading to much faster kernel launches.
  
 **3. Using Non-default Concurrent Stream**:
-TODO: Add stuff
+  - By using non-default streams with `cudaMemcpyAsync`, memory transfers can be overlapped with kernel execution, allowing segments of data to be processed concurrently while other segments are still being transferred.
+  - This technique enhances efficiency by enabling work on data to begin immediately without waiting for the entire memory transfer progress to complete.
 
 ## Performance Analysis
 
@@ -52,13 +57,27 @@ The performance was measured in terms of kernel execution time and memory transf
   - Device-to-Host transfer time remains consistent across all methods because the data is always checked on the CPU after the computation. This operation doesn't change regardless of where the data was initially located or how it was managed.
 
 ### Using Non-default Concurrent Streams
-TODO: Add Stuff
+![Concurrent Streams](./images/concurrent_streams_profile.png)
+- The total kernel execution and memory transfer time for this technique, which introduces concurrent streams, is similar to the prefetch techniques.
+- However, because memory transfers and kernel executions are overlapped, the total runtime of the application is significantly reduced. 
 
-## Profiling and Visualizations
-TODO: Add Stuff
+## Conclusion
 
-## Conclusions:
-TODO: Add Stuff
+This project demonstrates the critical role of memory management and execution strategies in optimizing CUDA programs:
+
+- **GPU-based Initialization**: Significantly improves performance by eliminating the need for Host-to-Device (HtoD) memory transfers.
+- **Prefetching**: Further reduces kernel execution time by ensuring data is already available on the GPU before computation begins.
+- **Concurrent Streams**: Allows overlapping memory transfers and kernel execution, maximizing GPU utilization and reducing overall application runtime.
+
+These optimizations are particularly beneficial for larger datasets, where memory transfer overheads and inefficient execution can significantly impact performance. As the project moves towards working with larger datasets and more complex model training applications, understanding and applying these techniques becomes increasingly important for achieving optimal performance.
+
+## Future Work
+
+- **Experiment with Larger Datasets**: Further explore the scalability of these optimizations with even larger datasets to understand their impact on performance.
+- **Investigate Additional CUDA Memory Management Techniques**: Compare the performance of other CUDA memory management strategies to identify further opportunities for optimization.
+- **Explore Advanced CUDA Features**: Delve into more advanced CUDA features, such as dynamic parallelism and cooperative groups, to push the boundaries of performance optimization.
+
+Gaining proficiency in these optimization techniques is essential as we continue to scale up to larger datasets and tackle more demanding model training tasks. This knowledge will be crucial in ensuring that our applications run efficiently and effectively on modern GPU hardware.
 
 ## References
 - Codes was learned and used from [NVIDIA DLI Course: Getting Started with Accelerated Computing in CUDA C/C++](https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-AC-04+V1)
