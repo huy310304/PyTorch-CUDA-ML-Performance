@@ -57,6 +57,9 @@ The performance was measured in terms of kernel execution time and memory transf
   - Device-to-Host transfer time remains consistent across all methods because the data is always checked on the CPU after the computation. This operation doesn't change regardless of where the data was initially located or how it was managed.
 
 ### Using Non-default Concurrent Streams
+<img src="https://github.com/user-attachments/assets/f5a29faf-603f-4d86-8652-266bbc6f6d5e" alt="image" width="600"/>  
+<p>This image highlights the difference between sequential and concurrent operations.</p>
+
 ![Concurrent Streams](./images/concurrent_streams_profile.png)
 - The total kernel execution and memory transfer time for this technique, which introduces concurrent streams, is similar to the prefetch techniques.
 - However, because memory transfers and kernel executions are overlapped, the total runtime of the application is significantly reduced. 
