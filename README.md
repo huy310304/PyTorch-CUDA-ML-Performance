@@ -35,15 +35,15 @@ This project aims to compare the performance of a PyTorch machine learning model
 ## Phase 1: Learning CUDA and Optimization Techniques
 
 ### Objective: 
-Learn the fundamentals of CUDA programming, implement simple CUDA applications, and use profiling tools to analyze and optimize these applications.
+Gain a foundational understanding of CUDA programming by implementing simple CUDA applications and utilizing profiling tools to analyze and optimize their performance.
 
 ### Progress:
-- [**Vector Addition Example**](./simple-vector-add): Implemented vector addition in both Python and CUDA to compare performance and applied basic optimizations (e.g., memory coalescing, kernel tuning) to enhance CUDA performance.
+- [**Vector Addition Example**](./simple-vector-add): Implement vector addition in both Python and CUDA to compare performance.
   
-- **Profiling and Visualization**: Profiled CUDA implementation with Nsight tools and visualized the impact of optimizations.
+- [**Optimization and Visualization**](./vector-add-optimization): Apply basic optimizations to enhance CUDA performance and Profile CUDA implementation with Nsight tools and visualized the impact of those optimizations.
 
 ### Outcome:
-This phase demonstrated significant performance gains through GPU acceleration with CUDA compared to Python, providing foundational knowledge in CUDA programming and optimization.
+Demonstrating significant performance gains through GPU acceleration with CUDA compared to Python, providing foundational knowledge in CUDA programming and optimization, and setting the stage for scaling up to training machine learning models with larger datasets in the next phase.
 
 ## Phase 2: Optimizing LLM-Generated CUDA Code
 
