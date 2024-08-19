@@ -10,7 +10,7 @@ The vector addition involves initializing vectors, performing the addition on th
 1. **Initialization on the CPU using `cudaMallocManaged` - [(view source code)](./vector_add_UM.cu).**
 2. **Initialization on the GPU using `cudaMallocManaged` - [(view source code)](./vector_add_init_kernel.cu).**
 3. **Initialization on the GPU using `cudaMallocManaged` and `cudaMemPrefetchAsync` - [(view source code)](./vector_add_init_kernel_prefetch.cu).**
-4. **Using Non-default Concurrent Streams for Overlapping Memory Transfers and Computation with `cudaMemcpyAsync`** - [(view source code)](./overlap_xfer.cu).
+4. **Non-default Concurrent Streams for Overlapping Memory Transfers and Computation using `cudaMemcpyAsync`** - [(view source code)](./overlap_xfer.cu).
 
 ## Key Observations
 
