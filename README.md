@@ -38,9 +38,9 @@ This project aims to compare the performance of a PyTorch machine learning model
 Gain a foundational understanding of CUDA programming by implementing simple CUDA applications and utilizing profiling tools to analyze and optimize their performance.
 
 ### Progress:
-- [**Vector Addition Example**]: Implement vector addition in both Python and CUDA to compare performance. (See results [here](./simple-vector-add))
+- **Vector Addition Example**: Implement vector addition in both Python and CUDA to compare performance. [View results here](./simple-vector-add)
   
-- [**Optimization and Visualization**]: Apply basic optimizations to enhance CUDA performance and Profile CUDA implementation with Nsight tools and visualized the impact of those optimizations.
+- **Optimization and Visualization**: Apply basic optimizations to enhance CUDA performance and Profile CUDA implementation with Nsight tools and visualized the impact of those optimizations.
 
 ### Outcome:
 Demonstrating significant performance gains through GPU acceleration with CUDA compared to Python and CPU, providing foundational knowledge in CUDA programming and optimization, and setting the stage for scaling up to training machine learning models with larger datasets in the next phase.
