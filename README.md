@@ -1,6 +1,6 @@
 # Optimizing Machine Learning with CUDA: A Comparative Study with PyTorch 
 
-## 📝 [A brief summarization poster](https://drive.google.com/file/d/1-79boy7_EZHLIIbIy23dW9GVcFYegx6w/view?usp=sharing)
+## 📝 [A brief summarization poster](https://drive.google.com/file/d/1DgrHPqi_ic-62I6c6JHDk_6YCY23tq-9/view?usp=sharing)
 
 ## Research Focus
 
