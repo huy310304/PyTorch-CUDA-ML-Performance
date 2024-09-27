@@ -21,9 +21,11 @@ A series of optimizations were applied to the initial regression model generated
 
 The optimizations significantly improved the model's performance, reducing execution time and improving efficiency. The following graph illustrates the impact of these optimizations on execution time:
 
-![Execution Time](./images/execution_time.png)
+![Execution Time](./images/execution_time_cuda.png)
 
 ### Showcase of Optimization Techniques
+
+Below are some of the showcase for important techniques that mostly increased the execution time ... (revise this)
 
 - **CUDA Streams**: This optimization involved utilizing multiple CUDA streams to enable concurrent memory transfers and kernel execution. By overlapping data processing with non-blocking, segmented transfers, the model was able to process different segments of data simultaneously. 
 
@@ -38,6 +40,18 @@ The optimizations significantly improved the model's performance, reducing execu
   - **Results**: The fused kernels demonstrated a marked improvement in execution time, as fewer kernel launches translate to reduced overhead and better use of the GPU’s resources.
 
   ![Fused Kernels](./images/fused_kernel.png)
+
+- **Shared Memory**: Shared memory is significantly faster than global memory because it is located closer to the CUDA cores and is accessible within each block. By utilizing shared memory for storing intermediate values such as input X, true output y_true, and gradients, the overhead of repeatedly accessing global memory during training was reduced.
+
+  - **Implementation Details**:  Shared memory was initialized using the __shared__ keyword, allowing data to be loaded at the start of the kernel execution. This enabled threads within each block to reuse the data efficiently. Synchronization between threads was handled with __syncthreads() to ensure correct execution order.
+  - **Results**: The use of shared memory minimized global memory accesses, resulting in a significant speedup, despite the minor overhead introduced by thread synchronization. As shown in the graph, shared memory provided one of the largest performance improvements, especially for larger datasets where repeated global memory accesses would have introduced delays.
+
+![Shared Memory Diagram](./images/shared_global_diagram.png)
+
+This diagram shows how shared memory in CUDA works. Shared memory is faster than global memory and can be accessed by all threads within a block. Threads use it to share data efficiently, reducing the need to access slower global memory. Each thread has private registers, and shared memory allows quick data exchange between them. This speeds up performance, especially in tasks where multiple threads need to reuse data.
+
+
+
 
 
 ### Insights and Future Work
