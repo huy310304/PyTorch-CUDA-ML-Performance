@@ -1,4 +1,4 @@
-# Phase 2: Initial CUDA ML Models from LLMs
+# Phase 2: Initial CUDA ML Models from LLMs and Manual Optimization
 
 The goal of this phase is to implement a linear regression model to predict an output `y` given input `X` using the formula: `y = w * X + b`, where `w` is the weight and `b` is the bias.
 

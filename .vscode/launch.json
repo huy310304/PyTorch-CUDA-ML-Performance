@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/ngh81/Documents/GPU Research/PyTorch-CUDA-ML-Performance",
-      "program": "c:/Users/ngh81/Documents/GPU Research/PyTorch-CUDA-ML-Performance/build/Debug/outDebug",
+      "cwd": ".",
+      "program": "build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
