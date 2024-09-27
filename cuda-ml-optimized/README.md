@@ -69,4 +69,3 @@ Additionally, LLM-generated code tends to be inconsistent, requiring manual debu
 The next phases will focus on scaling to more complex models (e.g., neural networks) and larger datasets. The goal is to address the limitations of LLM-generated code through manual optimizations and explore ways to automate optimization for more intricate models. Tools like Nsight Systems will be employed to fine-tune GPU performance.
 
 Although LLMs offer a solid starting point, manual intervention remains essential for optimizing CUDA-accelerated machine learning tasks.
-
