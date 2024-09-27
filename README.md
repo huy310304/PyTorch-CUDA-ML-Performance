@@ -42,7 +42,7 @@ Implement simple CUDA applications like vector addition to understand CUDA and o
   
 - **Optimization and Visualization**: Apply basic optimizations to enhance CUDA performance and Profile CUDA implementation with Nsight tools and visualized the impact of those optimizations.
 
-## [Phase 2: Optimizing LLM-Generated CUDA Code](./inital-LLMs-ml/)
+## [Phase 2: Optimizing LLM-Generated CUDA Code](./cuda-ml-optimized/)
 
 ### Objective & Outcome:
 Enhance LLM-generated CUDA ML code and compare with manual optimizations. This phase identified inefficiencies in LLM-generated code and showed that, with optimization, it can approach manually optimized CUDA implementations.

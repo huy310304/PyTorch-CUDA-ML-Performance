@@ -10,8 +10,10 @@ This phase focuses on the performance analysis of a simple regression task imple
 - **Training Loop**: Runs for 200 epochs, applying gradient descent to update model parameters and outputs training/testing loss every 10 epochs.
 - **Parallelism**: Leverages CUDA’s parallel execution to efficiently handle large datasets by splitting tasks across multiple threads.
 - **Memory Management**: Allocates and manages device memory for inputs, predictions, parameters, and gradients. Uses CUDA events to measure and report training time.
-- **Loss Function**: Utilizes Mean Absolute Error (MAE) for robust loss calculation.
-- **Performance Profiling**: Includes CUDA events to measure execution time, providing insights into the model's training efficiency.
+- **Loss Function**: Utilizes Mean Squared Error (MSE) L2loss for loss calculation.
+- **Performance Profiling**: Includes CUDA events and `NVIDIA NSight System` to measure execution time, providing insights into the model's training efficiency.
+
+Check this [Model Folder](./cuda_models/) for how the cuda model is set up
 
 ## Optimizations Applied
 
@@ -25,25 +27,25 @@ The optimizations significantly improved the model's performance, reducing execu
 
 ### Showcase of Optimization Techniques
 
-Below are some of the showcase for important techniques that mostly increased the execution time ... (revise this)
+Below are key techniques that significantly improved execution time:
 
 - **CUDA Streams**: This optimization involved utilizing multiple CUDA streams to enable concurrent memory transfers and kernel execution. By overlapping data processing with non-blocking, segmented transfers, the model was able to process different segments of data simultaneously. 
 
-  - **Implementation Details**: The data was split into two streams. While one stream was responsible for copying a segment of data from the host to the device, the other stream could simultaneously perform the training process on another segment. This approach effectively reduced idle times and improved throughput. 
+  - **Implementation Details**: The data was split into multiple streams. While one stream was responsible for copying a segment of data from the host to the device, the other stream could simultaneously perform the training process on another segment. This approach effectively reduced idle times and improved throughput. 
   - **Results**: As shown in the profiling image, the forward pass does not have to wait for the completion of the previous training segment. Instead, it occurs concurrently across the two streams, significantly reducing the overall execution time.
 
   ![Concurrent streams](./images/concurrent_streams.png)
 
-- **Fused Kernels**: Kernel fusion was applied to reduce the overhead associated with launching multiple kernels for different operations. By combining several operations into a single kernel, the launch overhead was minimized, leading to faster execution and improved GPU efficiency.
+- **Fused Kernels**: Kernel fusion was applied to reduce the overhead associated with launching multiple kernels for different operations. By combining several training operations into a single kernel, the launch overhead was minimized, leading to faster execution and improved GPU efficiency.
 
-  - **Implementation Details**: Instead of launching separate kernels for the forward pass, loss calculation, and gradient computation, these operations were fused into a single kernel. This fusion minimized the number of kernel launches, which is particularly beneficial in scenarios with many small operations that can be combined.
+  - **Implementation Details**: Instead of launching separate kernels for the forward pass, loss calculation, and gradient computation, these operations were fused into a single kernel. This fusion minimized the number of kernel launches, which is particularly beneficial in scenarios with many small operations that can be combined on the same chunk of data as in this case, the data is only needed to load into memory once.
   - **Results**: The fused kernels demonstrated a marked improvement in execution time, as fewer kernel launches translate to reduced overhead and better use of the GPU’s resources.
 
   ![Fused Kernels](./images/fused_kernel.png)
 
 - **Shared Memory**: Shared memory is significantly faster than global memory because it is located closer to the CUDA cores and is accessible within each block. By utilizing shared memory for storing intermediate values such as input X, true output y_true, and gradients, the overhead of repeatedly accessing global memory during training was reduced.
 
-  - **Implementation Details**:  Shared memory was initialized using the __shared__ keyword, allowing data to be loaded at the start of the kernel execution. This enabled threads within each block to reuse the data efficiently. Synchronization between threads was handled with __syncthreads() to ensure correct execution order.
+  - **Implementation Details**:  Shared memory was initialized using the ```__shared__``` keyword, allowing data to be loaded at the start of the kernel execution. This enabled threads within each block to reuse the data efficiently. Synchronization between threads was handled with ```__syncthreads()``` to ensure correct execution order.
   - **Results**: The use of shared memory minimized global memory accesses, resulting in a significant speedup, despite the minor overhead introduced by thread synchronization. As shown in the graph, shared memory provided one of the largest performance improvements, especially for larger datasets where repeated global memory accesses would have introduced delays.
 
 <p align="center">
@@ -51,10 +53,6 @@ Below are some of the showcase for important techniques that mostly increased th
 </p>
 
 This diagram shows how shared memory in CUDA works. Shared memory is faster than global memory and can be accessed by all threads within a block. Threads use it to share data efficiently, reducing the need to access slower global memory. Each thread has private registers, and shared memory allows quick data exchange between them. This speeds up performance, especially in tasks where multiple threads need to reuse data.
-
-
-
-
 
 ### Insights and Future Work
 
