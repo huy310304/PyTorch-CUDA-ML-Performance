@@ -46,7 +46,9 @@ Below are some of the showcase for important techniques that mostly increased th
   - **Implementation Details**:  Shared memory was initialized using the __shared__ keyword, allowing data to be loaded at the start of the kernel execution. This enabled threads within each block to reuse the data efficiently. Synchronization between threads was handled with __syncthreads() to ensure correct execution order.
   - **Results**: The use of shared memory minimized global memory accesses, resulting in a significant speedup, despite the minor overhead introduced by thread synchronization. As shown in the graph, shared memory provided one of the largest performance improvements, especially for larger datasets where repeated global memory accesses would have introduced delays.
 
-  ![Shared Memory Diagram](./images/shared_global_diagram.png)
+<p align="center">
+  <img src="./images/shared_global_diagram.png" alt="Shared Memory Diagram">
+</p>
 
 This diagram shows how shared memory in CUDA works. Shared memory is faster than global memory and can be accessed by all threads within a block. Threads use it to share data efficiently, reducing the need to access slower global memory. Each thread has private registers, and shared memory allows quick data exchange between them. This speeds up performance, especially in tasks where multiple threads need to reuse data.
 
