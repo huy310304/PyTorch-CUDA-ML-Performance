@@ -1,4 +1,4 @@
-# Phase 3: Performance Comparison for PyTorch and CUDA Simple ML Models
+# Phase 3: Performance Comparison for PyTorch and CUDA
 
 ## Overview
 
@@ -13,7 +13,9 @@ The key metrics of comparison include:
 
 ### High-Level Model Design 
 
-- Both the PyTorch and CUDA implementations were designed with identical setups to ensure a fair comparison. They share the same hyperparameters, neural network design, input-output structure, train-test split, and manual initialization (via `manual_seed` for weight and bias). Additionally, both models use the same number of epochs, loss function (L2 Mean Squared Error Loss), and optimizer (Stochastic Gradient Descent - SGD). 
+- Both the PyTorch and CUDA implementations were designed with identical setups to ensure a fair comparison, sharing the neural network design, input-output structure, train-test split, and weight/bias initialization (via `manual_seed`).
+
+- Both models also shared hyperparameters, training for 200 epochs using the same loss function (L2 Mean Squared Error Loss) and optimizer (Stochastic Gradient Descent - SGD).
 
 - The only difference between the two is the low-level optimizations applied in CUDA, which are not achievable in PyTorch due to its reliance on built-in, higher-level optimizations.
 
@@ -29,17 +31,17 @@ nsys profile --stats=true -o report_file ./executable
 
 This generates a detailed `report_file.nsys-rep` that can be opened and analyzed in NVIDIA Nsight Systems, allowing for examining the sequence of CUDA kernels, memory transfers, and other operations, providing insights into performance bottlenecks. Below is an zoom-in snapshot of 1 epoch.
 
-[NSIGHT](./images/nvidia_system_sample.png)
+![NSIGHT](./images/nvidia_system_sample.png)
 
 #### PyTorch Profiling with PyTorch Profiler and Perfetto UI
 
-For the PyTorch implementation, the PyTorch Profiler was used to generate a `trace.json` file. This trace file can be examined in Chrome's Trace Viewer (chrome://tracing) or Perfetto UI - Open Trace File (https://ui.perfetto.dev/). These tools allow for in-depth analysis of the profiled operators and CUDA kernels, giving a detailed view of the model's execution timeline. Below is an zoom-in snapshot of 1 epoch.
+For the PyTorch implementation, the PyTorch Profiler was used to generate a `trace.json` file. This trace file can be examined in [Chrome's Trace Viewer](chrome://tracing) or [Perfetto UI - Open Trace File](https://ui.perfetto.dev/). These tools allow for in-depth analysis of the profiled operators and CUDA kernels, giving a detailed view of the model's execution timeline. Below is an zoom-in snapshot of 1 epoch.
 
-[Perfetto UI](./images/perfetto_ui_sample.png)
+![Perfetto UI](./images/perfetto_ui_sample.png)
 
 ### Detailed Model Implementation
 
-#### 1. **PyTorch Model** [View Source Code](./pytorch_model/regression.py)
+#### 1. **PyTorch Model** - [View Source Code](./pytorch_model/regression.py)
 
 - **Implementation**: A simple linear regression model using `nn.Linear` was built in PyTorch. Initial weights (`w = 0.83`) and bias (`b = 0.7645`) were manually set to match the CUDA model.
 
@@ -51,7 +53,7 @@ For the PyTorch implementation, the PyTorch Profiler was used to generate a `tra
 
 - **Performance**: The total training time was measured and reported in milliseconds for comparison with the CUDA model. Final model parameters were also printed after training.
 
-#### 2. **Optimized CUDA Model** [View Source Code](./cuda_optimized_model/regression_optimized.cu)
+#### 2. **Optimized CUDA Model** - [View Source Code](./cuda_optimized_model/regression_optimized.cu)
 
 - **Implementation**: The CUDA model was designed to leverage low-level optimizations by manually managing memory and operations to achieve better performance compared to PyTorch’s high-level API, utilizing the optimized CUDA model from the [Shared Memory Model](../cuda-ml-optimized/cuda_models/shared_mem_all/regression_shared_mem.cu).
 

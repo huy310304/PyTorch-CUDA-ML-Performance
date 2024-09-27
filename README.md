@@ -52,7 +52,7 @@ Enhance LLM-generated CUDA ML code and compare with manual optimizations. This p
 
 - **Performance Profiling**: Profile the optimized code and document improvements in execution time, memory usage, accuracy, and GPU utilization.
 
-## Phase 3: Performance Comparison for PyTorch and CUDA Simple ML Models
+## [Phase 3: Performance Comparison for PyTorch and CUDA Simple ML Models](./cuda-pytorch-comparison/)
 
 ### Objective & Outcome:
 Compare performance of simple ML models implemented in PyTorch and CUDA. CUDA was found to excel in performance due to GPU-specific optimizations, while PyTorch offered ease of use and flexibility.
