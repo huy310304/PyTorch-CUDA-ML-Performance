@@ -7,8 +7,9 @@
 This project aims to compare the performance of a PyTorch machine learning model and a CUDA machine learning model generated using Large Language Models (LLMs). The primary goal is to evaluate the optimization capabilities of LLMs in generating CUDA code for machine learning tasks, identify any limitations, and determine areas for improvement. Additionally, this research seeks to provide guidance on framework selection for different ML tasks based on the findings.
 
 ## Recent Work and Updates (Fall 2024)
+- Develop an iterative optimization system where LLMs propose optimizations based on `kernel performance profiling` (Nsight reports) and `prompting`, and measure the extent to which this outperforms manual intervention.
 - Explored optimization techniques for minimizing synchronization overhead, applying these methods to compare performance between PyTorch and CUDA models.
-- Integrated GPU-accelerated libraries, such as cuML from the RAPIDS suite, to extend the comparison with PyTorch, focusing on performance gains in various machine learning tasks.
+- Integrated GPU-accelerated libraries, such as cuML, cuDF, and TensorRT from the RAPIDS suite as well as MLCommon Benchmarks to extend the comparison with PyTorch, focusing on performance gains in various machine learning tasks.
 
 ## General Notes:
 - Ensure the correct CUDA toolkit is loaded using: `module load cuda-toolkit-11.7.0`
