@@ -4,12 +4,27 @@
 
 ## Research Focus
 
-This project aims to compare the performance of a PyTorch machine learning model and a CUDA machine learning model generated using Large Language Models (LLMs). The primary goal is to evaluate the optimization capabilities of LLMs in generating CUDA code for machine learning tasks, identify any limitations, and determine areas for improvement. Additionally, this research seeks to provide guidance on framework selection for different ML tasks based on the findings.
+This project focuses on optimizing machine learning models using CUDA, comparing the performance of models developed with PyTorch and those generated using Large Language Models (LLMs) like ChatGPT 4.0. The primary goal is to evaluate the optimization potential of LLM-generated CUDA code, identifying key areas where manual intervention remains necessary and proposing strategies for improvement. Additionally, the research aims to provide insights and guidance on selecting appropriate frameworks for different ML tasks based on performance, ease of use, and optimization capabilities.
 
 ## Recent Work and Updates (Fall 2024)
 - Develop an iterative optimization system where LLMs propose optimizations based on `kernel performance profiling` (Nsight reports) and `prompting`, and measure the extent to which this outperforms manual intervention.
 - Explored optimization techniques for minimizing synchronization overhead, applying these methods to compare performance between PyTorch and CUDA models.
 - Integrated GPU-accelerated libraries, such as cuML, cuDF, and TensorRT from the RAPIDS suite as well as MLCommon Benchmarks to extend the comparison with PyTorch, focusing on performance gains in various machine learning tasks.
+
+## Results & Conclusions
+
+- **Limitations of LLM-Generated Code**: LLMs like ChatGPT 4.0 can generate CUDA code but often require manual optimization to reach efficiency, particularly in handling memory and kernel execution in complex tasks.
+
+- **Optimizing LLM-Generated CUDA Models**: Achieved a 90% improvement in training time through advanced techniques like concurrent CUDA streams, fused kernels, and shared memory, using insights from NVIDIA Nsight Systems and Compute to guide optimization.
+
+- **Iterative LLM-Based Optimization**: Developed a system using LLM-based prompting to refine CUDA code, resulting in a 50% boost in execution time and highlighting areas where LLM-generated code needs further tuning, especially in memory management and kernel efficiency.
+
+- **Performance Gains Over PyTorch**: Optimized CUDA models reduced training time by 60% and individual operations by 80% compared to PyTorch when processing large datasets (50M+ datapoints) on NVIDIA H100/A100 GPUs.
+
+- **CUDA vs. PyTorch Insights**: CUDA is ideal for performance-critical applications, offering substantial speed gains through low-level optimizations. In contrast, PyTorch excels in ease of use and rapid prototyping for general ML tasks.
+
+
+***
 
 ## General Notes:
 - Ensure the correct CUDA toolkit is loaded using: `module load cuda-toolkit-11.7.0`
@@ -73,5 +88,6 @@ Compare performance of simple ML models implemented in PyTorch and CUDA. CUDA wa
 
 ## Acknowledgments
 
-- Special thanks to Professor Adwait Jog for guidance and support.
+- Special thanks to Professor Adwait Jog for his invaluable guidance and William Kaiser for his gpu-profiling materials.
+
 - Acknowledgment to the Department of Computer Science at the University of Virginia for providing the necessary resources and GPU servers.
