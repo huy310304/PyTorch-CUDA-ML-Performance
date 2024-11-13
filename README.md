@@ -2,6 +2,8 @@
 
 ## 📝 [A brief summarization poster](https://drive.google.com/file/d/1DgrHPqi_ic-62I6c6JHDk_6YCY23tq-9/view?usp=sharing)
 
+## 📄 [A brief summary paper](https://drive.google.com/file/d/1c4pSJ82F9Fzw5xPglq0QTTm-QNZDaoFW/view?usp=sharing)
+
 ## Research Focus
 
 This project focuses on optimizing machine learning models using CUDA, comparing the performance of models developed with PyTorch and those generated using Large Language Models (LLMs) like ChatGPT 4.0. The primary goal is to evaluate the optimization potential of LLM-generated CUDA code, identifying key areas where manual intervention remains necessary and proposing strategies for improvement. Additionally, the research aims to provide insights and guidance on selecting appropriate frameworks for different ML tasks based on performance, ease of use, and optimization capabilities.
